@@ -1,0 +1,22 @@
+
+section {
+
+}
+
+
+/* SECTION: navigation */
+
+.navigation-bar {
+    padding: 1rem;
+}
+.navigation-bar.subsection {
+    padding: 1rem;
+}
+.navigation-bar.subsection.item {
+
+}
+.navigation-bar.subsection.item-button {
+
+}
+
+/* SECTION: content */

@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load rest_framework %}
+
+{% block content %}
+<table class="area-table" id="area-table-1">
+    <thead>
+        <tr>
+            <th class="text-center"></th>
+            {% for column in columns %}
+                <th class="text-center p-1">{{ column }}</th>
+            {% endfor %}
+        </tr>    
+    </thead>
+    <tbody>
+    {% for row in matrix %}
+        <tr>
+            <th class="p-2">{{ row.row }}</th>
+            {% for column in row.columns %}
+                {% if column.x == row.row %}
+                    <td class="area-table-field" width="70px" height="70px" field_pk={{ column.field.pk }} x={{ column.x }} y={{ column.y }} reserved="{% if column.field != None %}yes{% else %}no{% endif %}" container="{% if column.field.container_fk.pk %}yes{% else %}no{% endif %}" container_pk="{{ column.field.container_fk.pk }}"><button type="button" data-toggle="modal" data-target="#exampleModal" class="btn w-100 h-100">{% if column.field.container_fk %}{{ column.field.container_fk }}{% else %}{{ column.x }}{{ column.y}}{% endif %}</button></td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+{% endblock content %}

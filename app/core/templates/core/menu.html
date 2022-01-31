@@ -1,0 +1,85 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load rest_framework %}
+{% block title %}{% endblock %}
+
+
+
+{% block content %}
+{% endblock content %}  
+
+
+
+{% comment %} {% block menu %}
+<!-- [MENU] -->
+    <div class="row">
+        <div class="col">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#acordion-item-pick" aria-expanded="true" aria-controls="acordion-item-pick">
+                    PICK
+                    </button>
+                </h2>
+                <div id="acordion-item-pick" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <!-- [FORM] pick_form -->
+                            <form action="{% url 'stock:Search_items' %}" csrf_token="{{ csrf_token }}" method="GET" success_redirect="" paste_content_success="" id="item_search_form" submit_button_class="submit_button" class="form_ajax m-1">
+                                {% csrf_token %}
+                                {% for field in pick_form %}
+                                    <div class="field-group rounded">
+                                        <label class="rounded">&nbsp;{{ field.label }}</label> {{ field }}
+                                        {{ field.errors }}
+                                        {% if field.help_text %}
+                                            <span class="helptext">&nbsp;{{ field.help_text }}  </span>
+                                        {% endif %}
+                                    </div>             
+                                {% endfor %}
+                                <hr>
+                            </form>
+                          <!-- FORM SUBMITION -->
+                            <div class="mb-3 p-2">
+                                <a value="Szukaj" class="btn btn-sm btn-primary submit_button" form="item_search_form">Szukaj!</a>
+                            </div>
+                    </div>
+                </div>
+                </div>
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acordion-item-stow" aria-expanded="false" aria-controls="acordion-item-stow">
+                    STOW
+                    </button>
+                </h2>
+                <div id="acordion-item-stow" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                    <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                    </div>
+                </div>
+                </div>
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#acordion-item-transfer" aria-expanded="false" aria-controls="acordion-item-transfer">
+                    Transfer
+                    </button>
+                </h2>
+                <div id="acordion-item-transfer" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- SCRIPT -->
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <script src="{% static 'js/ajax.js' %}"></script>
+
+    <script> 
+        //$("#item_search_form").DjangoAjaxForm({})        
+        $("#item_search_form").DjangoSearchForm({})        
+    </script>
+
+{% endblock %} {% endcomment %}

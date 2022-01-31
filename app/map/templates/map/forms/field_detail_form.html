@@ -1,0 +1,51 @@
+{% extends 'map/base.html' %}
+{% load static %}
+{% load rest_framework %}
+
+{% block content %}
+
+<div class="row m-2 border rounded shadow-sm">
+<div class="col mt-2">
+  <div class="header p-2">
+  <h5>Field</h5>
+  <hr>
+  </div>
+  
+<div class="form p-1">
+{% for form in detail_forms %}
+
+<form action="{% url 'map:field_detail' %}" method="post" model="field" id="field_detail_form{{ forloop.counter0 }}" class="m-1">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="field-group rounded">
+    <label class="rounded">&nbsp;{{ field.label }}</label> {{ field }}
+    {{ field.errors }}
+    {% if field.help_text %}
+        <span class="helptext">&nbsp;{{ field.help_text }}  </span>
+    {% endif %}
+    </div>             
+{% endfor %}
+<hr>
+</form>
+</div>
+<!-- SUBMITION -->
+<div class="mb-3 p-2">
+  <a value="Zapisz" class="btn btn-sm btn-primary ajax_post" url="{% url 'map:field_detail' %}?pk={{ form.instance.pk }}" successurl="{% url 'map:field_detail' %}"  forms="#field_detail_form{{ forloop.counter0 }}">&nbsp;Zapisz</a>
+</div>
+{% endfor %}
+
+
+</div>
+</div>
+
+  <!-- SCRIPT -->
+  <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+  <script src="{% static 'js/jquery-ui.js' %}"></script>
+
+
+
+{% endblock content %}
+
+
+

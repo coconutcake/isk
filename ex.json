@@ -1,0 +1,18 @@
+{   
+    "areas":[
+        {
+            "instance":"area", 
+            "containers":[
+                {
+                    "instance":"container",
+                    "items": [
+                        {
+                            "instance":"instance"
+                        }
+                    ]
+
+                }
+            ]
+        }
+    ]
+}
