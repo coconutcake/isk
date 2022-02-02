@@ -20,7 +20,6 @@ class DepartmentAdmin(admin.ModelAdmin):
             'fields': ('name','description')
         }),
     ) 
-
 admin.site.register(models.Department,DepartmentAdmin)
 
 class MapAdmin(admin.ModelAdmin):
@@ -41,7 +40,6 @@ class MapAdmin(admin.ModelAdmin):
             'fields': ('name','description')
         }),
     ) 
-
 admin.site.register(models.Map,MapAdmin)
 
 class AreaAdmin(admin.ModelAdmin):
@@ -62,7 +60,6 @@ class AreaAdmin(admin.ModelAdmin):
             'fields': ('name','description')
         }),
     ) 
-
 admin.site.register(models.Area,AreaAdmin)
 
 class FieldAdmin(admin.ModelAdmin):
@@ -85,5 +82,4 @@ class FieldAdmin(admin.ModelAdmin):
             'fields': ('name','description')
         }),
     ) 
-
 admin.site.register(models.Field,FieldAdmin)

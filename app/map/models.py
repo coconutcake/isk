@@ -24,8 +24,6 @@ class Department(DefaultObject, models.Model):
     def get_absolute_url(self):
         return reverse("department_detail", kwargs={"pk": self.pk})
 
-
-
 class Map(DefaultObject, models.Model):
     
     """
@@ -46,7 +44,6 @@ class Map(DefaultObject, models.Model):
     def get_absolute_url(self):
         return reverse("map_detail", kwargs={"pk": self.pk})
 
-
 class Area(DefaultObject, models.Model):
 
     """
@@ -66,7 +63,6 @@ class Area(DefaultObject, models.Model):
     def get_absolute_url(self):
         return reverse("area_detail", kwargs={"pk": self.pk})
 
-
 class Field(DefaultObject, models.Model):
 
     """
@@ -83,10 +79,10 @@ class Field(DefaultObject, models.Model):
         verbose_name = _("Field")
         verbose_name_plural = _("Fields")
 
+   
+
     def __str__(self):
         return f"{self.name} > {self.area_fk.name}"
-
-    
 
     def get_absolute_url(self):
         return reverse("Field_detail", kwargs={"pk": self.pk})

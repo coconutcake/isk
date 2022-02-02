@@ -23,7 +23,7 @@ class ContainerItemDetailForm(forms.ModelForm):
     
     class Meta:
         model = room_equipment.models.ContainerItem
-        fields = ['name','description']
+        fields = ['description']
 
 
     def __init__(self,*args,**kwargs):
