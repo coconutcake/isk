@@ -26,10 +26,6 @@ class DefaultObject(models.Model):
     def get_absolute_url(self):
         return reverse("DefaultObject_detail", kwargs={"pk": self.pk})
 
-
-
-
-
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         """ Tworzy uzytkownika """
@@ -51,7 +47,6 @@ class UserManager(BaseUserManager):
         user.is_staff = True
         user.save(using=self._db)
         return user
-    
 
 class User(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(max_length=255,unique=True)
