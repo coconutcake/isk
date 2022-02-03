@@ -1,59 +1,43 @@
-
-
-/* Sections */
-section {}
-
-section#navigation {}
-
-section#content {}
-
-
-
-/* SECTION: navigation */
-
-section#navigation div.navigation-bar {
-    padding: 0.5rem;
-    padding-left: 1.2rem;
-    background-color: grey;
-    height: 100vh;
-    -ms-flex: 0 0 230px;
-    flex: 0 0 230px; 
-    position: fixed;
-    width: 230px;
+div.container-fluid.navigation-bar {
 
 }
-div.navigation-bar div.subsection {
-    padding: 0.5rem;
-    background-color: blue;
-}
-div.navigation-bar div.subsection div.subsection-item {
-    padding: 0.5rem;
-    background-color: cadetblue;
-}
-div.navigation-bar div.subsection div.subsection-item div.item {
-    padding: 0.5rem;
-    background-color: hotpink;
-}
-
-/* Media quaries */
-@media (max-width: 690px) {
-    section#navigation div.navigation-bar {
-      display: none; 
-    } 
-  }
-
-
-/* SECTION: content */
-section#content div.content {
-    /* padding: 0.5rem; */
-    background-color: rgb(147, 90, 187);
-    margin-left: 14rem;
+div.container-fluid.content {
 
 }
+div.container-fluid.content div.subsection {
+    
+}
+div.container-fluid.content div.subsection div.subsection-item {
 
-/* Media queries */
-@media (max-width: 690px) {
-    section#content div.content {
-        margin-left: 0rem;
-    } 
+}
+div.container-fluid.content div.subsection div.subsection-item.header {
+
+}
+div.container-fluid.content div.subsection div.subsection-item.content {
+
+}
+div.container-fluid.content div.subsection div.subsection-item.content div.form {
+
+}
+div.container-fluid.content div.subsection div.subsection-item.content div.form form {
+
+}
+div.container-fluid.content div.subsection div.subsection-item.content div.form form div.field-group {
+    margin-bottom: 0.5rem;
+}
+div.container-fluid.content div.subsection div.subsection-item.content div.form form div.field-group * {
+    display: block;
+}
+div.container-fluid.content div.subsection div.subsection-item.content div.form form div.field-group label {
+    font-weight: bold;
+}
+.green {
+    animation-name: lightme;
+    animation-duration: 4s;
+}
+/* The animation code */
+@keyframes lightme {
+    0%   {background-color: transparent;}
+    25%  {background-color: lightgreen;}
+    100% {background-color: transparent;}
   }

@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load rest_framework %}
+{% block title %}Stow{% endblock %}
+
+
+
+{% block content %}
+    <!-- CONTENT -->
+        <div class="row subsection">
+            <div class="col-12">
+                <div class="subsection-item header">
+                <h1>Stow</h1>
+                </div>
+                <hr>
+                <div class="subsection-item content">
+                <p>This is stow</p>
+                <!-- FORM -->
+                    {% if form %}
+                        <div class="form">
+                            <form action="{% url 'core:Stow' %}" class="ajax-single-form" method="post" submit_button_class="submit-button" success_redirect="" paste_content_success="" paste_content_failed=".form" id="stow-form">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                <div class="field-group rounded">
+                                <label class="rounded">&nbsp;{{ field.label }}</label> {{ field }}
+                                {{ field.errors }}
+                                {% if field.help_text %}
+                                    <span class="helptext">&nbsp;{{ field.help_text }}  </span>
+                                {% endif %}
+                                </div>             
+                            {% endfor %}
+                            <hr>
+                            </form>
+                        </div>
+                    <!-- SUBMITION -->
+                        <div class="mt-4 mb-4">
+                            <a value="Proceed" class="btn btn-sm btn-primary submit-button" form="stow-form">&nbsp;Proceed</a>
+                        </div>
+                    {% endif %}    
+                </div>
+            </div>
+        </div>
+        <!-- SCRIPTS -->
+            <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+            <script src="{% static 'js/jquery-ui.js' %}"></script>
+            <script src="{% static 'js/ajax.js' %}"></script>
+            <script src="{% static 'js/csrf.js' %}"></script>
+            <script>
+
+                $(".ajax-single-form").DjangoSingleAjaxForm({})
+            </script>
+
+{% endblock content %}

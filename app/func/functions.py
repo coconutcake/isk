@@ -8,8 +8,9 @@ from django.contrib.auth import get_user_model
 from django.forms import model_to_dict
 from rest_framework.authtoken.models import Token
 from typing import List
-
-
+import json
+from django.http import QueryDict
+import urllib
 #Funckje 
 def get_ip_lan():
 
@@ -237,4 +238,51 @@ def exclude_fields(excluded_fields: List, payloads: List):
                 except:
                     raise Exception
 
+def get_json_data(request,data_key=None,*args,**kwargs):
+    """
+    Zwraca QueryDict z request.POST[data_key]
+    """
 
+    data = request.POST
+
+    for k,v in data.items():
+        if k == data_key:
+            data2 = json.loads(json.dumps(data.get(data_key, '')))
+
+            return data2
+
+def get_dict_data(request,data_key=None,*args,**kwargs):
+    """
+    Zwraca Dict z request.POST[data_key]        
+    """
+
+    data = dict(request.POST.dict())
+    items = urllib.parse.parse_qs(data[data_key])
+    di = {}
+    for i,v in items.items():
+        di[i] = v[0]
+    
+    return di
+
+def get_eval_dict(dictionary: dict) -> dict:
+    """
+    Zwraca przekonwerowany Dict z odpowiednimi typami danych
+    """
+    di = dictionary
+    for i, v in di.items():
+        try:
+            di[i] = literal_eval(v)
+        except ValueError:
+            pass
+
+    return di
+
+def get_form_querydict_data(request,data_key=None,*args,**kwargs):
+
+    data = request.POST
+
+    for k,v in data.items():
+        if k == data_key:
+            data2 = json.loads(json.dumps(data.get(data_key, '')))
+
+            return QueryDict(data2)

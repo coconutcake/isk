@@ -11,8 +11,8 @@ app_name = 'core'
 
 urlpatterns = [
 
-    re_path(r"^welcome/$", views.WelcomeView.as_view(), name="Welcome"),
     re_path(r"^dash/$", views.DashboardView.as_view(), name="Dashboard"),
+    re_path(r"^stow/$", views.StowView.as_view(), name="Stow"),
     
 
 ]
