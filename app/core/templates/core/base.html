@@ -20,19 +20,28 @@
   </head>
   <body>
 
+
     {% block navigation %}
     <section id="navigation">
       <div class="row">
-        <div class="col-3 navigation-bar bg-warning">
-          <span>&</span>
+        <div class="col navigation-bar">
+          <div class="subsection">
+            <div class="subsection-item">
+              <div class="item">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
     {% endblock navigation %}
 
+
+
+
     {% block content %}
     {% endblock content %}
-    
+
 
     <!-- SCRIPT -->
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>

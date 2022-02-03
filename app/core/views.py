@@ -58,7 +58,7 @@ class WelcomeView(View):
         return context
 
 
-class MenuView(View):
+class DashboardView(View):
     """
     Menu
     """
@@ -66,7 +66,7 @@ class MenuView(View):
     pick_form = core.forms.PickForm
     stow_form = ""
     transfer_form = ""
-    template_name = "core/menu.html"
+    template_name = "core/dashboard.html"
 
     def get_querydict_data(self,request,data_key=None,*args,**kwargs):
         """
