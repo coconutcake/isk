@@ -1,3 +1,15 @@
+h1,h5 {
+   margin:0!important; 
+}
+
+div#sidebar-wrapper, div.sidebar-heading, .list-group-item  {
+    background-color: rgb(224, 224, 224)!important;
+}
+.list-group-item:hover{
+    background-color: rgb(95, 212, 173)!important;
+}
+
+
 div.container-fluid.navigation-bar {
 
 }
@@ -5,39 +17,86 @@ div.container-fluid.content {
 
 }
 div.container-fluid.content div.subsection {
+    margin-top: 1rem;
     
+}
+div.container-fluid.content div.subsection div > hr {
+    /* height: 4px; */
 }
 div.container-fluid.content div.subsection div.subsection-item {
 
 }
 div.container-fluid.content div.subsection div.subsection-item.header {
+    background-color: rgb(95, 212, 173);
+    padding: 0.35rem;
+    border-radius: 3px;
 
 }
 div.container-fluid.content div.subsection div.subsection-item.content {
 
 }
-div.container-fluid.content div.subsection div.subsection-item.content div.form {
+div.container-fluid.content div.subsection div.subsection-item.content div.forms{
 
 }
-div.container-fluid.content div.subsection div.subsection-item.content div.form form {
+div.container-fluid.content div.subsection div.subsection-item.content div.sub-subsection-item.header {
+    background-color: rgb(189, 148, 236);
+    padding: 0.35rem;
+    border-radius: 3px;
+}
+div.container-fluid.content div.subsection div.subsection-item.content hr{
 
 }
-div.container-fluid.content div.subsection div.subsection-item.content div.form form div.field-group {
+div.container-fluid.content div.subsection div.subsection-item.content div.forms form {
+
+}
+div.container-fluid.content div.subsection div.subsection-item.content div.forms form div.field-group {
     margin-bottom: 0.5rem;
 }
-div.container-fluid.content div.subsection div.subsection-item.content div.form form div.field-group * {
+div.container-fluid.content div.subsection div.subsection-item.content div.forms form div.field-group * {
     display: block;
 }
-div.container-fluid.content div.subsection div.subsection-item.content div.form form div.field-group label {
+div.container-fluid.content div.subsection div.subsection-item.content div.forms form div.field-group label {
     font-weight: bold;
 }
-.green {
-    animation-name: lightme;
-    animation-duration: 4s;
+div.container-fluid.content div.subsection div.subsection-item.content div.forms form div.field-group select, textarea, input {
+    width: 100%;
+    box-sizing: border-box;
+}
+.status-html {
+    display: none;
+    padding: 0.3rem;
+    border: dotted 1px grey;
+    background-color: rgb(219, 219, 219);
+}
+.errorlist {
+    padding: 0.3rem;
+    border: dotted 1px grey;
+    background-color: rgb(219, 219, 219);
+}
+.errorlist ul {
+    list-style-type: none;
+}
+.errorlist ul li:before {
+    font-family: "Font Awesome 5 Free"; 
+    font-weight: 900; 
+    content: "\f007";
+
+}
+.green-animation {
+    animation-name: green-animation;
+    animation-duration: 3s;
 }
 /* The animation code */
-@keyframes lightme {
-    0%   {background-color: transparent;}
-    25%  {background-color: lightgreen;}
-    100% {background-color: transparent;}
+@keyframes green-animation {
+    0%  {border: solid 2px lightgreen; background-color: lightgreen;}
+    100% {border: solid 2px lightgreen; background-color: transparent;}
+  }
+.red-animation {
+    animation-name: red-animation;
+    animation-duration: 3s;
+}
+/* The animation code */
+@keyframes red-aniamation {
+    0%  {border: solid 2px red; background-color: red;}
+    100% {border: solid 2px red; background-color: transparent;}
   }

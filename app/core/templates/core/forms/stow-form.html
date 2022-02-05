@@ -1,13 +1,56 @@
-<form action="{% url 'core:Stow' %}" class="ajax-single-form" method="post" submit_button_class="submit-button" success_redirect="" paste_content_success="" id="stow-form">
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="field-group rounded">
-    <label class="rounded">&nbsp;{{ field.label }}</label> {{ field }}
-    {{ field.errors }}
-    {% if field.help_text %}
-        <span class="helptext">&nbsp;{{ field.help_text }}  </span>
-    {% endif %}
-    </div>             
-{% endfor %}
-<hr>
-</form>
+
+{% load static %}
+{% load rest_framework %}
+
+<div class="row">
+    <div class="col-12 col-md-6" id="form">
+        <div class="sub-subsection-item header">
+            <h5><i class="fas fa-arrow-down"></i> Stow to location</h5>
+        </div>
+        <hr>
+        <div class="sub-subsection-item content">
+            <form action="{% url 'core:StowCreateForm' %}" class="ajax-single-form" method="post" submit_button_class="submit-button" success_redirect="" status_html="#status-stow-form" paste_content_failed=".form" id="stow-form">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="field-group rounded">
+                <label class="rounded">&nbsp;{{ field.label }}</label> {{ field }}
+                {{ field.errors }}
+                {% if field.help_text %}
+                    <span class="helptext">&nbsp;{{ field.help_text }}  </span>
+                {% endif %}
+                </div>             
+            {% endfor %}
+            <hr>
+            </form>
+            <div class="mt-4 mb-4">
+                <a value="Proceed" class="btn btn-sm btn-primary submit-button" form="stow-form">&nbsp;Proceed</a>
+                <div id="status-stow-form" class="status-html"></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-12 col-md-6" id="locations">
+        <div class="sub-subsection-item header">
+            <h5><i class="fas fa-map-marker"></i> Locations</h5>
+        </div>
+        <hr>
+        <div class="sub-subsection-item content">
+        </div>
+    </div>
+
+
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+<script src="{% static 'js/ajax.js' %}"></script>
+<script src="{% static 'js/csrf.js' %}"></script>
+<script>
+    $(".ajax-single-form").DjangoSingleAjaxForm({})
+    $("select").on("change",function() {
+        console.log("sadasd")
+        let $ap = $(".logs").find(".sub-subsection-item.content")
+        let $label = $(this).parent().find("label")
+        let $selected = $(this).val()
+        $ap.append("<span><i class='fas fa-info-circle'></i> Wybrano "+$label.text()+": "+$selected+"</span><br>")
+
+      });
+</script>

@@ -13,6 +13,7 @@ urlpatterns = [
 
     re_path(r"^dash/$", views.DashboardView.as_view(), name="Dashboard"),
     re_path(r"^stow/$", views.StowView.as_view(), name="Stow"),
+    re_path(r"^stow-create-form/$", views.StowCreateForm.as_view(), name="StowCreateForm"),
     
 
 ]

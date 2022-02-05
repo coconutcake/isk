@@ -55,11 +55,29 @@ class StowView(View):
     Stow
     """
 
-    form = stock.forms.ItemLocationForm
-    form_template = "core/forms/stow-form.html"
     template_name = "core/stow.html"
 
 
+    def get_context_data(self, request, **kwargs):
+        context = {}
+        return context
+    
+    def get(self, request, pk=None, *args, **kwargs):
+
+        return render(
+            request, 
+            template_name=self.template_name,
+            context=self.get_context_data(request,**kwargs)
+            )
+
+    
+class StowCreateForm(View):
+    """
+    Stow
+    """
+
+    form = stock.forms.ItemLocationForm
+    form_template = "core/forms/stow-form.html"
 
 
     def get_context_data(self, request, **kwargs):
@@ -71,13 +89,11 @@ class StowView(View):
 
         return render(
             request, 
-            template_name=self.template_name,
+            template_name=self.form_template,
             context=self.get_context_data(request,**kwargs)
             )
 
     def post(self, request, pk=None, *args, **kwargs):
-
-
 
         json_data = fnc.get_json_data(request, data_key="form_data", *args, **kwargs)
         json_additional_data = fnc.get_json_data(request, data_key="additional_data", *args, **kwargs)
@@ -91,13 +107,19 @@ class StowView(View):
 
         if form.is_valid():
             form.save()
-            return JsonResponse(data={"status":status.HTTP_201_CREATED})
+            return JsonResponse(
+                data={
+                    "status":status.HTTP_201_CREATED,
+                    "status_html": "<span><i class='fas fa-check text-success'></i> created!</span>"
+                    }
+                )
         else:
             form_string_html = render_to_string(self.form_template, {'form': form}, request=request)
             return JsonResponse(
                 data={
                     "status":status.HTTP_400_BAD_REQUEST, 
-                    "form_string_html":form_string_html
+                    "status_html": "<span><i class='fas fa-exclamation-circle text-danger'></i> Failed to create!</span>",
+                    "form_string_html":form_string_html,
                     }
                 )
 
