@@ -54,7 +54,6 @@
 });
 })(jQuery);
 
-
 (function($) {
     $.fn.extend({
         LoadRemoteContent: function(options) {
@@ -78,7 +77,7 @@
 
         }
     });
-    })(jQuery);
+})(jQuery);
 
 (function($) {
     $.fn.extend({
@@ -157,6 +156,9 @@
 });
 })(jQuery);
 
+
+
+
 (function($) {
     $.fn.extend({
         DjangoSearchForm: function(options) {
@@ -203,4 +205,61 @@
             })
 }
 });
+})(jQuery);
+
+timeout = null;
+
+(function($) {
+    $.fn.extend({
+        DjangoAjaxFieldContentGet: function(options) {
+            var defaults = {
+                method: "POST",
+                url: $(this).attr("url"),
+                target_field: $($(this).find("input")),
+            };
+            options = $.extend(defaults, options);
+            $th = $(this);
+            $abs = $th.find("div.absolute")   
+
+            $abs.hide()
+                   
+
+            function make_list(query){
+                for (let i = 0; i < query.length; i++){
+                    console.log(query[i])
+                }
+                
+            }
+
+            options['target_field'].on("keyup change",function(){
+                $abs.hide()
+                $i = "name="+$(this).val()
+                $formdata = {"form_data": $i}
+                console.log($formdata)
+                var that = this;
+                if (timeout !== null) {
+                    clearTimeout(timeout);
+                }
+                timeout = setTimeout(function () { 
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: options['url'],
+                        data:$formdata,
+                        // beforeSend: function(){
+                       // options['target_field'].css("background","#FFF url({% static 'img/loading.gif' %}) no-repeat 165px");
+                        // },
+                        success: function(data){
+                            $abs.show();
+                            console.log(data.query)
+                            make_list(data.query)
+                            $abs.html(data.query);
+                            options['target_field'].css("background","#FFF");
+                        }
+                    });
+                }, 1000);
+
+            });
+        }
+    });
 })(jQuery);

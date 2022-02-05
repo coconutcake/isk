@@ -19,9 +19,77 @@ from ast import literal_eval
 from django.core import serializers
 from django.db.models import Q
 import room_equipment.models
-
+from rest_framework import status
 
 # Create your views here.
+
+
+
+class GetItems(View):
+    """
+    Gets Item
+    """
+    def convert_query_to_json_autocomplete(self, key_to_keep, value_to_keep, query):
+
+        li = []
+
+        for obj in query:
+            o = model_to_dict(obj)
+            for i,v in o.items():
+                if i == key_to_keep:
+                    li.append({i:value_to_keep})
+        print(json.dumps(li))
+        return json.dumps(li)
+
+
+
+
+    def get_context_data(self, request, **kwargs):
+        context = {}
+        return context
+    
+    def get(self,request,*args,**kwargs):
+        name = request.GET.get("name","")
+        query = stock.models.Item.objects.filter(
+            Q(name__iexact=name) | Q(name__contains=name)
+        ) if name else stock.models.Item.objects.all()
+
+        # li = []
+        # li = [json.dumps({"id":1,"value":"asd","id":1,"value":"zxc"})]
+
+
+        # for q in query:
+        #     m = model_to_dict(q)
+        #     del m['icon']
+        #     li.append(json.dumps(m))
+
+        
+        # print(li)
+
+
+
+        return JsonResponse(data={
+            "json":self.convert_query_to_json_autocomplete("id","name",query)
+        })
+
+    def post(self, request, pk=None, *args, **kwargs):
+
+        data = fnc.get_dict_data(request, data_key="form_data")
+
+        query = stock.models.Item.objects.filter(
+            Q(name__iexact=data['name']) | Q(name__contains=data['name'])
+        ) if data['name'] else stock.models.Item.objects.all()
+
+        
+
+        return JsonResponse(
+            data={
+                "status":status.HTTP_200_OK,
+                "query":list(query.values_list("id","name"))
+            }
+            )
+
+       
 class SearchItemLocationView(View):
     """
     Widok przeszukajacy po parametrach get

@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "isk",
+			"path": "../../../.."
+		}
+	],
+	"settings": {
+		"python.formatting.provider": "black",
+		"python.linting.enabled": true
+	}
+}

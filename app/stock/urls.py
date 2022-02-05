@@ -12,5 +12,6 @@ app_name = 'stock'
 
 urlpatterns = [
     re_path(r"^itemloc/search/$", stock.views.SearchItemLocationView.as_view(), name="Search_items"),
+    re_path(r"^getitems/$", stock.views.GetItems.as_view(), name="GetItems"),
 ]
 

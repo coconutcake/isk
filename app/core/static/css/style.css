@@ -1,6 +1,14 @@
+/* hide scrollbar but allow scrolling */
+
 h1,h5 {
    margin:0!important; 
 }
+textarea {
+  height: 100px;
+}
+/* div#page-content-wrapper {
+    min-width: 100%;
+} */
 
 div#sidebar-wrapper, div.sidebar-heading, .list-group-item  {
     background-color: rgb(224, 224, 224)!important;
@@ -9,7 +17,29 @@ div#sidebar-wrapper, div.sidebar-heading, .list-group-item  {
     background-color: rgb(95, 212, 173)!important;
 }
 
-
+div.relative {
+    position: relative;
+  }
+  
+  div.absolute {
+    position: absolute;
+  }
+  div.absolute.list {
+      
+    top: 100px;
+    left: 0;
+    width: 100%;
+    background-color: lightgray;
+    
+  }
+  div.absolute.list ul {
+      list-style: none;
+      padding-left: 0;
+      padding: 0.25rem;
+  }
+  div.absolute.list ul li {
+    border-bottom: dotted 1px black;
+  }
 div.container-fluid.navigation-bar {
 
 }
@@ -18,6 +48,7 @@ div.container-fluid.content {
 }
 div.container-fluid.content div.subsection {
     margin-top: 1rem;
+
     
 }
 div.container-fluid.content div.subsection div > hr {
