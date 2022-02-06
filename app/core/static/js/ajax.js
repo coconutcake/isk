@@ -1,5 +1,65 @@
 
+(function($) {
+    $.fn.extend({
+        AutocompleteField: function(options) {
+            var defaults = {
+                method: "GET",
+                url: $(this).attr("url"),
+                target_form: $(this).attr("target_form"),
+                target_field: $(this).attr("target_field"),
+                target_log: $(this).attr("target_log"),
+                minlength: 1,
+                select_function: "action1",
+                input:"input#name",
+                headers: {
+                    "X-CSRFToken": '{{ csrf_token }}',
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+            };
 
+            options = $.extend(defaults, options);
+            $th = $(this)
+            $input = $th.find(options['input'])
+            $log = $(options['target_log']);
+            console.log("AutocompleteField loaded for "+$th.attr('id'))
+            
+           
+            // -----> AUTOCOMPLETE 
+            $input.autocomplete({
+                source: function( request, response ) {
+                    // -----> AJAX 
+                    $.ajax( {
+                        url: options['url'],
+                        dataType: "json",
+                        data: {
+                        name: request.term
+                        },
+                        success: function(data) {
+                            $log.append("<span>&nbsp;<i class='fas fa-download'></i> Data downloaded using GET!<span><br>")
+                            js = JSON.parse(data.json)
+                            response(js);
+                            console.log("Received data:")
+                            console.log(js)
+                    }
+                  } );
+                },
+                minLength: options['minlength'],
+                // -----> SELECT 
+                select: function( event, ui ) {
+                    event.preventDefault();
+                    $target_field = options['target_form']+" "+options['target_field']+" option[value="+ui.item.value+"]"
+                    $log.append("<span>&nbsp; <i class='fas fa-mouse-pointer'></i> Selecting option: "+ui.item.value+"<span><br>")
+                    $($target_field).prop("selected",true)
+                    //$(this).val(ui.item.label)
+                    $(this).val("")
+                    let $a = options['select_function']+"($th, $(this), ui.item.label, ui.item.value)"
+                    eval($a)
+                    return false;
+                }
+              } );
+        }
+});
+})(jQuery);
 
 (function($) {
     $.fn.extend({
@@ -61,6 +121,7 @@
                 method: "GET",
                 url: "",
                 paste_content_to: $(this),
+                target_log: $(this).attr("target_log"),
                 headers: {
                     "X-CSRFToken": '{{ csrf_token }}',
                     "X-Requested-With": "XMLHttpRequest"
@@ -69,9 +130,11 @@
 
 
             options = $.extend(defaults, options);
+            $log = $(options['target_log']);
 
             $.get(options['url'], function(data) {
                 $(options['paste_content_to']).html(data);
+                $log.append("<span>&nbsp;<i class='fas fa-download'></i> Form downloaded!</span><br>")
                 console.log("Form loaded!")
             });
 
@@ -87,6 +150,7 @@
                 data: {},
                 additional_data:{},
                 form: "",
+                target_log:$(this).attr("target_log"), 
                 url: "",
                 status_success_animation: "green-animation",
                 headers: {
@@ -95,6 +159,7 @@
                 },
             };
             options = $.extend(defaults, options);
+            $log = $(options['target_log']);
             console.log("Executing DjangoSingleAjaxForm plugin...")
             let $submit_button_class = $(this).attr('submit_button_class');
             let $form_id = $(this).attr("id");
@@ -121,6 +186,7 @@
             }
 
             $submit_button.on("click",function(){
+                $log.append("<span>&nbsp;<i class='fas fa-align-justify'></i> Submiting form...</span><br>")
                 console.log("Collecting data from form: "+$form_id+" ...")
                 options['form'] = $form_id
                 let $form = $("#"+options['form'])
@@ -139,15 +205,17 @@
                     data: options['data'],
                     success: function(data){
                         if (data.status == 201){
+                            $log.append("<span>&nbsp;<i class='fas fa-download'></i> Form downloaded!</span><br>")
                             console.log("CREATED!")
                             console.log(data.status_html)
                             status_success_show($form,data)
                             delete_errors($form)
                         }
                         if (data.status == 400){
+                            $log.append("<span>&nbsp;<i class='fas fa-times-circle'></i> Form validation failed!</span><br>")
                             console.log("FAILED!")
                             console.log(data)
-                            $form.parent().parent().parent().empty().html(data.form_string_html);
+                            $form.parent().parent().parent().parent().empty().html(data.form_string_html);
                         }
                         }
                 });
@@ -155,9 +223,6 @@
 }
 });
 })(jQuery);
-
-
-
 
 (function($) {
     $.fn.extend({

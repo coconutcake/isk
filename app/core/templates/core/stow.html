@@ -3,13 +3,7 @@
 {% load rest_framework %}
 {% block title %}Stow{% endblock %}
 
-
-
 {% block content %}
-
-
-
-
     <!-- CONTENT -->
         <div class="row subsection">
             <div class="col-12">
@@ -19,8 +13,7 @@
                 <hr>
                 <div class="subsection-item content">
                     <!-- FORM -->
-                        <div id="stow_form" class="forms"></div>
-                        <div id="stow_logs" class="logs">
+                        <div id="stow_form" class="forms" target_log="#log-window"></div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="sub-subsection-item header">
@@ -28,6 +21,7 @@
                                     </div>
                                     <hr>
                                 <div class="sub-subsection-item content">
+                                    <div id="log-window"></div>  
                                 </div>
                         </div>
                     </div>
@@ -36,12 +30,9 @@
             </div>
 
             <div class="row subsection">
-                <div class="col-12">                
+                <div class="col-12">   
                 </div>
-            </div>
-
-            
-
+            </div>           
         </div>
         <!-- SCRIPTS -->
             <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
@@ -49,7 +40,9 @@
             <script src="{% static 'js/ajax.js' %}"></script>
             <script src="{% static 'js/csrf.js' %}"></script>
             <script>
-                $("#stow_form").LoadRemoteContent({url:"{% url 'core:StowCreateForm' %}"})
+                $("#stow_form").LoadRemoteContent({
+                    url:"{% url 'core:StowCreateForm' %}"
+                })
+                
             </script>
-
 {% endblock content %}

@@ -69,8 +69,7 @@ class StowView(View):
             template_name=self.template_name,
             context=self.get_context_data(request,**kwargs)
             )
-
-    
+ 
 class StowCreateForm(View):
     """
     Stow
@@ -122,8 +121,6 @@ class StowCreateForm(View):
                     "form_string_html":form_string_html,
                     }
                 )
-
-
 class SearchItemView(View):
 
     def get(self, request, pk=None, *args, **kwargs):
