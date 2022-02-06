@@ -13,11 +13,11 @@ class ItemLocationForm(forms.ModelForm):
     
     class Meta:
         model = stock.models.ItemLocation
-        fields = "__all__"
+        fields = ["item_fk","container_item_fk","pieces","serial","mac","ip","description"]
 
 
     def __init__(self,*args,**kwargs):
-        super(ItemLocationForm,self).__init__(*args,**kwargs)
+        super(ItemLocationForm,self).__init__(*args,**kwargs)        # self.fields['item_fk'].widget = forms.HiddenInput()
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = \
                 "form-control shadow-sm"

@@ -163,3 +163,5 @@ class ContainerItemDetailView(View):
             return JsonResponse(data={"status":"OK"})
         else:
             return JsonResponse(data={"status":"Failed"})
+
+

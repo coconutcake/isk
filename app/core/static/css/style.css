@@ -16,28 +16,27 @@ div#sidebar-wrapper, div.sidebar-heading, .list-group-item  {
 .list-group-item:hover{
     background-color: rgb(95, 212, 173)!important;
 }
-
+.noselect {
+    pointer-events: none;
+  }
 div.relative {
     position: relative;
   }
-  
-  div.absolute {
+div.absolute {
     position: absolute;
   }
-  div.absolute.list {
-      
+div.absolute.list {      
     top: 100px;
     left: 0;
     width: 100%;
     background-color: lightgray;
-    
   }
-  div.absolute.list ul {
+div.absolute.list ul {
       list-style: none;
       padding-left: 0;
       padding: 0.25rem;
   }
-  div.absolute.list ul li {
+div.absolute.list ul li {
     border-bottom: dotted 1px black;
   }
 div.container-fluid.navigation-bar {
@@ -48,8 +47,6 @@ div.container-fluid.content {
 }
 div.container-fluid.content div.subsection {
     margin-top: 1rem;
-
-    
 }
 div.container-fluid.content div.subsection div > hr {
     /* height: 4px; */

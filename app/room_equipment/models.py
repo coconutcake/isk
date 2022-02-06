@@ -330,8 +330,11 @@ class ContainerItem(models.Model):
         verbose_name = _("ContainerItem")
         verbose_name_plural = _("ContainerItems")
 
-    def __str__(self):
+    def get_container_location_info(self):
         return f"{self.container_location_fk.location_barcode} - {self.container_item_type_fk}"
+
+    def __str__(self):
+        return self.get_container_location_info()
 
     def get_absolute_url(self):
         return reverse("ContainerItem_detail", kwargs={"pk": self.pk})

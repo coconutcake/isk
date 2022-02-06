@@ -29,65 +29,128 @@ class GetItems(View):
     """
     Gets Item
     """
-    def convert_query_to_json_autocomplete(self, key_to_keep, value_to_keep, query):
+    def convert_query_to_json_autocomplete(self, label, value, query):
+        """
+        Converts query to json autocomplete field 
+        """
 
         li = []
 
         for obj in query:
             o = model_to_dict(obj)
-            for i,v in o.items():
-                if i == key_to_keep:
-                    li.append({i:value_to_keep})
-        print(json.dumps(li))
+            label_ = o[label]
+            value_ = o[value]
+            di = {"label":label_,"value":value_}
+            li.append(di)
+            
         return json.dumps(li)
 
-
-
-
     def get_context_data(self, request, **kwargs):
+
         context = {}
         return context
     
     def get(self,request,*args,**kwargs):
+        
         name = request.GET.get("name","")
+
+        # -----> Query 
         query = stock.models.Item.objects.filter(
-            Q(name__iexact=name) | Q(name__contains=name)
+            Q(name__iexact=name) | Q(name__icontains=name)
         ) if name else stock.models.Item.objects.all()
 
-        # li = []
-        # li = [json.dumps({"id":1,"value":"asd","id":1,"value":"zxc"})]
-
-
-        # for q in query:
-        #     m = model_to_dict(q)
-        #     del m['icon']
-        #     li.append(json.dumps(m))
-
-        
-        # print(li)
-
-
-
+        # -----> JsonResponse 
         return JsonResponse(data={
-            "json":self.convert_query_to_json_autocomplete("id","name",query)
+            "json":self.convert_query_to_json_autocomplete(
+                label="name",
+                value="id", 
+                query=query
+                )
+        })
+class GetItemLocations(View):
+    """
+    Gets Item
+    """
+    template_name = "stock/itemlocations.html"
+
+    def get_context_data(self, request, **kwargs):
+
+        name = request.GET.get("name","")
+        id = request.GET.get("id","")
+
+        # -----> Query LocationItems 
+        item_locations = stock.models.ItemLocation.objects.filter(
+            Q(item_fk__id__in=[id]) | Q(item_fk__name__icontains=name)
+        ) if name else stock.models.ItemLocation.objects.all()
+
+        # -----> Queries ?????????
+        containers = room_equipment.models.Container.objects.filter(
+            )
+        item_locations = stock.models.ItemLocation.objects.filter(
+            container_item_fk__container_fk__in=containers
+            )
+        container_items = room_equipment.models.ContainerItem.objects.filter(
+            container_fk__in=containers
+            )
+
+        context = {}
+        context['itemlocations'] = item_locations
+        return context
+    
+    def get(self,request,*args,**kwargs):
+               
+        # -----> JsonResponse 
+        return render(
+            request, 
+            template_name=self.template_name,
+            context=self.get_context_data(request,**kwargs)
+            )
+
+class GetContainerItems(View):
+    """
+    Gets Item
+    """
+    def convert_query_to_json_autocomplete_strlabel(self, value, query):
+        """
+        Converts query to json autocomplete field 
+        """
+
+        li = []
+
+        for obj in query:
+            print(obj.__str__())
+            o = model_to_dict(obj)
+            label_ = obj.__str__()
+            value_ = o[value]
+            di = {"label":label_,"value":value_}
+            li.append(di)
+            
+        return json.dumps(li)
+
+    def get_context_data(self, request, **kwargs):
+
+        context = {}
+        return context
+    
+    def get(self,request,*args,**kwargs):
+        
+        name = request.GET.get("name","")
+
+        # -----> Query 
+        query = room_equipment.models.ContainerItem.objects.filter(
+            Q(container_location_fk__location_barcode__iexact=name) | 
+            Q(container_location_fk__location_barcode__icontains=name)
+        ) if name else room_equipment.models.ContainerItem.objects.all()
+
+        # -----> JsonResponse 
+        return JsonResponse(data={
+            "json":self.convert_query_to_json_autocomplete_strlabel(
+                value="id", 
+                query=query
+                )
         })
 
-    def post(self, request, pk=None, *args, **kwargs):
 
-        data = fnc.get_dict_data(request, data_key="form_data")
-
-        query = stock.models.Item.objects.filter(
-            Q(name__iexact=data['name']) | Q(name__contains=data['name'])
-        ) if data['name'] else stock.models.Item.objects.all()
-
-        
-
-        return JsonResponse(
-            data={
-                "status":status.HTTP_200_OK,
-                "query":list(query.values_list("id","name"))
-            }
-            )
 
        
 class SearchItemLocationView(View):

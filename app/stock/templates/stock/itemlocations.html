@@ -1,0 +1,17 @@
+
+{% load static %}
+{% load rest_framework %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="header">
+            <h5><i class="fas fa-th"></i> Item locations</h5>
+        </div>
+        <hr>
+        <div class="sub-subsection-item content">
+            {% for iloc in itemlocations %}
+                <span>{{ iloc }} - {{ iloc.container_item_fk }}</span><br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
